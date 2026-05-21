@@ -18,6 +18,18 @@ const createUserIntoDb = async (payload: User) => {
   return result;
 };
 
+const getAllIssuFromDB = async (id: string) => {
+  const result = await pool.query(
+    `
+    SELECT * FROM issues
+    SELECT * FROM users WHERE id=$1 IN (SELECT reporter_id FROM issues)
+    `,
+    [id],
+  );
+  return result.rows;
+};
+
 export const userService = {
   createUserIntoDb,
+  getAllIssuFromDB,
 };

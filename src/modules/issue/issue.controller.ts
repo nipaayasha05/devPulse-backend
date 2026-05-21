@@ -28,6 +28,46 @@ const createIssue = async (req: Request, res: Response) => {
   }
 };
 
+const getAllIssue = async (req: Request, res: Response) => {
+  try {
+    const result = await issueService.getAllIssueFromDB();
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      data: result,
+    });
+  } catch (error: any) {
+    sendResponse(res, {
+      statusCode: 500,
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+};
+
+const getIssueById = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    const result = await issueService.getIssueByIdFromDB(id as string);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      data: result,
+    });
+  } catch (error: any) {
+    sendResponse(res, {
+      statusCode: 500,
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+};
+
 export const issueController = {
   createIssue,
+  getAllIssue,
+  getIssueById,
 };
