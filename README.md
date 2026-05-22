@@ -4,9 +4,7 @@ A backend platform for software teams to report issue,bug, suggest feature
 
 ## Live URL
 
-[Live Server](https://assignment-2-five-gold.vercel.app)
-
-[GitHub Repository](https://github.com/nipaayasha05/devPulse-backend)
+https://assignment-2-five-gold.vercel.app
 
 ## Features
 
@@ -53,11 +51,9 @@ A backend platform for software teams to report issue,bug, suggest feature
   - JWT_SECRET=your_secret_key
   ```
 
-````
-
 ### 5. Run the project
 
-- ```npm run dev```
+- `npm run dev`
 
 ## API endpoints
 
@@ -101,5 +97,3 @@ A backend platform for software teams to report issue,bug, suggest feature
   - reporter_id (INT NOT NULL)
   - created_at (TIMESTAMP DEFAULT NOW())
   - updated_at (TIMESTAMP DEFAULT NOW())
-
-````
