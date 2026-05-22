@@ -102,8 +102,52 @@ const getIssueByIdFromDB = async (id: string) => {
   };
 };
 
+const updateIssueIntoDB = async (id: string, payload: Issue, user: any) => {
+  // console.log(user);
+  const { title, description, type, status } = payload;
+
+  const existingIssue = await pool.query(
+    `
+  SELECT * FROM issues WHERE id=$1
+  `,
+    [id],
+  );
+
+  const issue = existingIssue.rows[0];
+
+  if (!issue) {
+    throw new Error("Issue not found");
+  }
+
+  if (user.role === "contributor") {
+    if ((issue.reporter_id as string) !== (user.id as string)) {
+      throw new Error("Only owner can update this issue");
+    }
+
+    if (issue.status !== "open") {
+      throw new Error("Issue status must be open");
+    }
+  }
+
+  const result = await pool.query(
+    `
+    UPDATE issues 
+    SET title=COALESCE($1,title),
+    description=COALESCE($2,description),
+    type=COALESCE($3,type),
+    status=COALESCE($4,status)
+    WHERE id=$5 
+    RETURNING *
+    `,
+    [title, description, type, status, id],
+  );
+
+  return result.rows[0];
+};
+
 export const issueService = {
   createIssueIntoDB,
   getAllIssueFromDB,
   getIssueByIdFromDB,
+  updateIssueIntoDB,
 };
