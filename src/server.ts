@@ -6,7 +6,7 @@ export const main = async () => {
   initDB();
   if (process.env.NODE_ENV != "production") {
     app.listen(config.PORT, () => {
-      console.log(`Example app listening on port ${config.PORT}`);
+      // console.log(`Example app listening on port ${config.PORT}`);
     });
   }
 };

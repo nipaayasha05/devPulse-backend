@@ -135,7 +135,7 @@ const updateIssueIntoDB = async (id: string, payload: Issue, user: any) => {
     SET title=COALESCE($1,title),
     description=COALESCE($2,description),
     type=COALESCE($3,type),
-    status=COALESCE($4,status)
+    status=COALESCE($4,status) 
     WHERE id=$5 
     RETURNING *
     `,
@@ -145,9 +145,36 @@ const updateIssueIntoDB = async (id: string, payload: Issue, user: any) => {
   return result.rows[0];
 };
 
+const deleteUserFromDB = async (id: string, payload: Issue, user: any) => {
+  const existingIssue = await pool.query(
+    `
+  SELECT *FROM issues WHERE id=$1
+  `,
+    [id],
+  );
+
+  const issue = existingIssue.rows[0];
+
+  if (!issue) {
+    throw new Error("Issue not found");
+  }
+
+  if (user.role === "contributor") {
+    throw new Error("Only maintainer can delete all issue");
+  }
+  const result = await pool.query(
+    `
+    DELETE FROM issues WHERE id=$1
+    `,
+    [id],
+  );
+  return result.command;
+};
+
 export const issueService = {
   createIssueIntoDB,
   getAllIssueFromDB,
   getIssueByIdFromDB,
   updateIssueIntoDB,
+  deleteUserFromDB,
 };
