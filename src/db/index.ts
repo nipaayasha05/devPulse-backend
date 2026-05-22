@@ -31,8 +31,8 @@ export const initDB = async () => {
             updated_at TIMESTAMP DEFAULT NOW()
                )
                 `);
-    console.log("table created successfully");
+    // console.log("table created successfully");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };

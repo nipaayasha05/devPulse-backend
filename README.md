@@ -41,7 +41,7 @@ https://assignment-2-five-gold.vercel.app
 
 ### 3. Install dependencies
 
-- npm install
+- `npm install`
 
 ### 4. Create `.env` file
 
@@ -79,21 +79,23 @@ https://assignment-2-five-gold.vercel.app
 
 ## Database schema
 
-- Users table
-  - id (SERIAL PRIMARY KEY)
-  - name (VARCHAR(75) NOT NULL)
-  - email (VARCHAR(75) UNIQUE NOT NULL)
-  - password (TEXT NOT NULL)
-  - role (VARCHAR(20) DEFAULT 'contributor' CHECK (role IN ('contributor', 'maintainer')))
-  - created_at (TIMESTAMP DEFAULT NOW())
-  - updated_at (TIMESTAMP DEFAULT NOW())
+### Users table
 
-- Issues table
-  - id (SERIAL PRIMARY KEY)
-  - title (VARCHAR(150) NOT NULL)
-  - description (TEXT NOT NULL)
-  - type (VARCHAR(20) NOT NULL CHECK (type IN ('bug', 'feature_request')))
-  - status (VARCHAR(20) DEFAULT 'open' CHECK (status IN ('open', 'in_progress', 'resolved')))
-  - reporter_id (INT NOT NULL)
-  - created_at (TIMESTAMP DEFAULT NOW())
-  - updated_at (TIMESTAMP DEFAULT NOW())
+- id (SERIAL PRIMARY KEY)
+- name (VARCHAR(75) NOT NULL)
+- email (VARCHAR(75) UNIQUE NOT NULL)
+- password (TEXT NOT NULL)
+- role (VARCHAR(20) DEFAULT 'contributor' CHECK (role IN ('contributor', 'maintainer')))
+- created_at (TIMESTAMP DEFAULT NOW())
+- updated_at (TIMESTAMP DEFAULT NOW())
+
+### Issues table
+
+- id (SERIAL PRIMARY KEY)
+- title (VARCHAR(150) NOT NULL)
+- description (TEXT NOT NULL)
+- type (VARCHAR(20) NOT NULL CHECK (type IN ('bug', 'feature_request')))
+- status (VARCHAR(20) DEFAULT 'open' CHECK (status IN ('open', 'in_progress', 'resolved')))
+- reporter_id (INT NOT NULL)
+- created_at (TIMESTAMP DEFAULT NOW())
+- updated_at (TIMESTAMP DEFAULT NOW())
